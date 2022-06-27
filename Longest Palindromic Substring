@@ -1,0 +1,44 @@
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var longestPalindrome = function(s) {
+    if (s.length == 0) {
+        return ''
+    } else if (s.length == 1) {
+        return s
+    } else {
+        let max2 = s[0]
+        for(let i = 0; i < s.length; i++) {
+            let substrIndex = s.indexOf(s[i], i + 1 )
+            while (substrIndex > -1) {
+                if (substrIndex + 1 - i > max2.length) {
+                    let substr = s.slice(i,substrIndex + 1)
+                    if (isHui(substr)) {
+                        max2 = substr
+                    }
+                }
+                substrIndex = s.indexOf(s[i], substrIndex + 1 )
+            }
+        }
+        return max2
+    }
+};
+
+var isHui = function(s) {
+   if (s.length == 1) {
+       return true
+   } else if (s.length == 2 ) {
+       if (s[0] == s[s.length - 1]) {
+           return true
+       } else {
+           return false
+       }
+   } else if (s.length > 2) {
+       if (s[0] == s[s.length - 1]) {
+           return isHui(s.slice(1, s.length - 1))
+       } else {
+           return false
+       }
+   }
+}
